@@ -19,6 +19,7 @@ public class ServiceLocatorSO : ScriptableObject
             Debug.LogWarning($"ServiceLocatorSO: Service of type {type} is already registered.");
             return;
         }
+        Debug.Log($"[ServiceLocatorSO] Service of type {type} is registered.");
         _services[type] = service;
     }
 
