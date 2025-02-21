@@ -4,86 +4,109 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
+using Game.Interfaces;
+using System;
 
 
 // TODO: maybe hold loaded assets dictionary for validation.
-public class AddressablesService : ServiceBase, IAssetLoader
+
+namespace Game.Services
 {
-    /// <summary>
-    /// Initializes the Addressables system.
-    /// </summary>
-    public override async UniTask InitializeAsync()
+    public class AddressablesService : IAssetLoader
     {
-        AsyncOperationHandle initHandle = Addressables.InitializeAsync();
-        await initHandle.ToUniTask();
-        if (initHandle.Status == AsyncOperationStatus.Succeeded)
+        public async UniTask InitializeAsync()
         {
-            await base.InitializeAsync();
+            AsyncOperationHandle initHandle = Addressables.InitializeAsync();
+            try
+            {
+                // Await the operation and let any exceptions propagate.
+                await initHandle.ToUniTask();
+                Debug.Log("[AddressablesService] Addressables initialized successfully.");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[AddressablesService] Addressables initialization failed: {ex.Message}");
+            }
         }
-        else
-        {
-            Debug.LogError("Addressables initialization failed!");
-        }
-    }
 
-    /// <summary>
-    /// Loads an asset of type T by its Addressable address / name.
-    /// </summary>
-    public async UniTask<T> LoadAssetAsync<T>(string address)
-    {
-        AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(address);
-        await handle.ToUniTask();
-        if (handle.Status == AsyncOperationStatus.Succeeded)
+        public async UniTask<T> LoadAssetAsync<T>(string address)
         {
-            return handle.Result;
+            AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(address);
+            await handle.ToUniTask();
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                return handle.Result;
+            }
+            else
+            {
+                Debug.LogError($"Failed to load asset at address: {address}");
+                return default;
+            }
         }
-        else
-        {
-            Debug.LogError($"Failed to load asset at address: {address}");
-            return default;
-        }
-    }
 
-    /// <summary>
-    /// Loads a scene asynchronously by its Addressable address / name.
-    /// </summary>
-    public async UniTask<SceneInstance> LoadSceneAsync(string sceneAddress, LoadSceneMode loadMode = LoadSceneMode.Single)
-    {
-        AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(sceneAddress, loadMode, activateOnLoad: true);
-        await handle.ToUniTask();
-        if (handle.Status == AsyncOperationStatus.Succeeded)
+        public async UniTask<SceneInstance> LoadSceneAsync(string sceneAddress, bool isAdditive)
         {
-            return handle.Result;
-        }
-        else
-        {
-            Debug.LogError($"Failed to load scene at address: {sceneAddress}");
-            return default;
-        }
-    }
+            var loadMode = isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single;
+            AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(sceneAddress, loadMode);
+            await handle.Task.AsUniTask();
 
-    /// <summary>
-    /// Unloads an asset previously loaded via Addressables.
-    /// </summary>
-    public void UnloadAsset<T>(T asset)
-    {
-        Addressables.Release(asset);
-    }
-
-    /// <summary>
-    /// Unloads a scene that was loaded via Addressables.
-    /// </summary>
-    public async UniTask UnloadSceneAsync(SceneInstance sceneInstance)
-    {
-        AsyncOperationHandle handle = Addressables.UnloadSceneAsync(sceneInstance);
-        await handle.ToUniTask();
-        if (handle.Status == AsyncOperationStatus.Succeeded)
-        {
-            Debug.Log("Scene unloaded successfully.");
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                Debug.Log($"Scene loaded successfully: {sceneAddress}");
+                return handle.Result;
+            }
+            else
+            {
+                Debug.LogError($"Failed to load scene at address: {sceneAddress}");
+                return default;
+            }
         }
-        else
+
+        /*public  bool LoadSceneAsync(string sceneAddress, bool isAdditive)
         {
-            Debug.LogError("Failed to unload scene.");
+            var loadMode = isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single;
+            try
+            {
+                AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(sceneAddress, loadMode);
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    //return handle.Result;
+                    return true;
+                }
+*//*                else
+                {
+                    Debug.LogError($"Failed to load scene at address: {sceneAddress}");
+                    return false;
+                }*//*
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load scene at address: {ex}");
+
+            }
+
+            return false;
+        }*/
+
+        public void UnloadAsset<T>(T asset)
+        {
+            Addressables.Release(asset);
+        }
+
+
+        public async UniTask UnloadSceneAsync(SceneInstance sceneInstance)
+        {
+            AsyncOperationHandle handle = Addressables.UnloadSceneAsync(sceneInstance);
+            await handle.ToUniTask();
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                Debug.Log("Scene unloaded successfully.");
+            }
+            else
+            {
+                Debug.LogError("Failed to unload scene.");
+            }
         }
     }
 }
+
