@@ -5,6 +5,7 @@ namespace Game.Utility.Enums
     {
         Blue,
         Purple,
+        Yellow,
         Red
     }
 }

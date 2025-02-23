@@ -16,19 +16,8 @@ namespace Game.Views
 
         public event Action<IClickableBall> OnBallClick;
 
-
-
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log($"click event {eventData} clickedt.");
-
-            HandleClick();
-        }
-
-        private void HandleClick()
-        {
-            Debug.Log($"BallView on {gameObject.name} clickedt.");
-
             OnBallClick?.Invoke(this);
         }
 

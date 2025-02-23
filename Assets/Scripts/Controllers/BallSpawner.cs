@@ -1,70 +1,75 @@
-using Game.Interfaces;
 using System;
-using System.Collections;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Game.Interfaces;
+using Game.ScriptableObjects;
 
 namespace Game.Controllers
 {
-    public class BallSpawner : MonoBehaviour
+    // A non-MonoBehaviour ball spawner that uses UniTask for asynchronous operations.
+    public class BallSpawner :  IDisposable
     {
-        [SerializeField] private GameObject ballPrefab;
+        private readonly BallsListSO _ballPrefabs;
+        private GameEventAggregator _gameEventAggregator;
+        private readonly Transform _spawnContainer;
 
-        [SerializeField] private float spawnInterval = 1f;
-        [SerializeField] private int maxBalls = 60;
 
-        [SerializeField] private float spawnMinX = -8f;
-        [SerializeField] private float spawnMaxX = 8f;
-        [SerializeField] private float spawnY = 6f;
+        private const float _spawnInterval = 0.5f;
+        private const int _maxBalls = 60;
+        private const float _spawnMinX = -4;
+        private const float _spawnMaxX = 4;
+        private const float _spawnY = 9;
 
-        [SerializeField] private Transform spawnContainer;
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private int _currentBallCount = 0;
 
-        public event Action<IClickableBall> BallSpawned;
-
-        // Track the number of balls currently active.
-        private int currentBallCount = 0;
-
-        private void Start()
+        public BallSpawner(BallsListSO ballPrefabs, GameEventAggregator gameEventAggregator, Transform spawnContainer)
         {
-            StartCoroutine(SpawnBallsRoutine());
+            _ballPrefabs = ballPrefabs;
+            _gameEventAggregator = gameEventAggregator;
+            _spawnContainer = spawnContainer;
+
+            StartGameWithDelay(200).Forget();
         }
 
-        private IEnumerator SpawnBallsRoutine()
+        private async UniTaskVoid StartGameWithDelay(int delay)
         {
-            // Continue attempting to spawn balls indefinitely (or until the spawner is disabled)
-            while (true)
+            await UniTask.Delay(delay);
+            StartSpawning(_cancellationTokenSource.Token).Forget();
+        }
+
+        public async UniTaskVoid StartSpawning(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
             {
-                if (currentBallCount < maxBalls)
+                if (_currentBallCount < _maxBalls)
                 {
                     SpawnBall();
                 }
-                yield return new WaitForSeconds(spawnInterval);
+                await UniTask.Delay(TimeSpan.FromSeconds(_spawnInterval), cancellationToken: cancellationToken);
             }
         }
 
         private void SpawnBall()
         {
-            float spawnX = UnityEngine.Random.Range(spawnMinX, spawnMaxX);
-            Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
+            float spawnX = UnityEngine.Random.Range(_spawnMinX, _spawnMaxX);
+            Vector3 spawnPosition = new Vector3(spawnX, _spawnY, 0f);
 
-            GameObject newBall = Instantiate(ballPrefab, spawnPosition, Quaternion.identity, spawnContainer);
+            GameObject prefab = _ballPrefabs.GetRandomObject();
+            GameObject newBall = UnityEngine.Object.Instantiate(prefab, spawnPosition, Quaternion.identity, _spawnContainer);
 
             var ball = newBall.GetComponent<IClickableBall>();
-            BallSpawned?.Invoke(ball);
-            // Optionally, initialize the ball's properties (color, type, etc.) here.
-            // For example, if your BallModel is attached on a BallController script on the prefab:
-            // newBall.GetComponent<BallController>()?.InitializeRandom();
+            _gameEventAggregator.RaiseBallSpawned(ball);
+            _currentBallCount++;
 
-            currentBallCount++;
+            // TODO: subscribe to an event on the ball so that when it is removed,
+            // you can decrement _currentBallCount accordingly.
+        }
 
-            // Optionally, subscribe to an event from the ball when it is removed (or deactivated)
-            // so that you can decrement currentBallCount.
-            // For example:
-            // BallView ballView = newBall.GetComponent<BallView>();
-            // if(ballView != null)
-            // {
-            //    ballView.OnRemoved += () => currentBallCount--;
-            // }
+        public void Dispose()
+        {
+            if (_cancellationTokenSource != null) _cancellationTokenSource.Cancel();
         }
     }
-
 }

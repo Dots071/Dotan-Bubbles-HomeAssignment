@@ -1,26 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Interfaces;
+using Game.ScriptableObjects;
+using System;
 
 namespace Game.Controllers
 {
-    public class BallsController : MonoBehaviour
+    public class BallsController: IDisposable
     {
-        [SerializeField] private BallSpawner _spawner;
         private readonly List<IClickableBall> _activeBalls = new List<IClickableBall>();
+        private readonly GameEventAggregator _eventAggregator;
 
-        private void OnEnable()
-        {
-            _spawner.BallSpawned += OnBallSpawned;
-        }
+        private const float _ballsRadius = 1.25f;
 
-        private void OnDisable()
+        public BallsController(GameEventAggregator gameEventAggregator)
         {
-            _spawner.BallSpawned -= OnBallSpawned;
-            foreach (var ball in _activeBalls)
-            {
-                ball.OnBallClick -= OnBallClicked;
-            }
+            _eventAggregator = gameEventAggregator;
+            _eventAggregator.BallSpawned += OnBallSpawned;
         }
 
         private void OnBallSpawned(IClickableBall ball)
@@ -31,7 +27,8 @@ namespace Game.Controllers
 
         private void OnBallClicked(IClickableBall clickedBall)
         {
-            var connectedBalls = GetConnectedBalls(clickedBall, 1.2f);
+
+            var connectedBalls = GetConnectedBalls(clickedBall, _ballsRadius);
 
             if (connectedBalls.Count < 3)
             {
@@ -70,16 +67,25 @@ namespace Game.Controllers
                 foreach (var other in _activeBalls)
                 {
                     var distance = Vector2.Distance(current.BallPosition, other.BallPosition);
+                    var isSameType = other.BallType == clickedType;
 
-                    if (!visited.Contains(other) && other.BallType == clickedType && distance <= radius)
+                    if (!visited.Contains(other) &&  isSameType && distance <= radius)
                     {
                         visited.Add(other);
                         queue.Enqueue(other);
                     }
                 }
             }
-
             return connected;
+        }
+
+        public void Dispose()
+        {
+            _eventAggregator.BallSpawned -= OnBallSpawned;
+            foreach (var ball in _activeBalls)
+            {
+                ball.OnBallClick -= OnBallClicked;
+            }
         }
     }
 }
