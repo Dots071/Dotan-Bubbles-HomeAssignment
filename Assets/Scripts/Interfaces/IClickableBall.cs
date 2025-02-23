@@ -11,5 +11,7 @@ namespace Game.Interfaces
 
         public event Action<IClickableBall> OnBallClick;
 
+        public void ExplodeBall();
+
     }
 }
