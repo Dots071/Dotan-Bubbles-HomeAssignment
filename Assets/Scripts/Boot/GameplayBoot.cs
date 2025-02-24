@@ -1,9 +1,7 @@
 using Game.ScriptableObjects;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.Controllers;
+using Game.Interfaces;
 
 namespace Game.Boot
 {
@@ -15,8 +13,9 @@ namespace Game.Boot
 
         [SerializeField] private Transform _ballsContainer;
 
-        private BallsController _ballsController;
+        private GameController _gameController;
         private BallSpawner _ballSpawner;
+        private BallsController _ballsController;
 
         void Start()
         {
@@ -25,14 +24,17 @@ namespace Game.Boot
 
         private void BindObjects()
         {
+            _gameController = new GameController(_gameEventAggregator);
             _ballSpawner = new BallSpawner(_ballsListSO, _gameEventAggregator, _ballsContainer);
             _ballsController = new BallsController(_gameEventAggregator);
         }
 
         private void OnDestroy()
         {
+            _gameController.Dispose();
             _ballsController.Dispose();
             _ballSpawner.Dispose();
         }
+
     }
 }

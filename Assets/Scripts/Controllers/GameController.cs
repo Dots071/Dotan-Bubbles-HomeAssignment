@@ -1,18 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+using Game.Interfaces;
+using System;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+namespace Game.Controllers
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameController : IDisposable
     {
-        
-    }
+        private IGameEventsAgrregator _events;
+        public GameController(IGameEventsAgrregator gameEventAggregator)
+        {
+            _events = gameEventAggregator;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            SubscribeToEvents();
+        }
+
+        private void SubscribeToEvents()
+        {
+            _events.PlayerMissed += OnPlayerMissed;
+        }
+
+        private void OnPlayerMissed()
+        {
+            Debug.Log("[GameController] player missed!");
+        }
+
+        public void Dispose()
+        {
+            _events.PlayerMissed -= OnPlayerMissed;
+        }
+
+        // listen to Miss event - calculate taps left and update model.
+        // L
     }
 }

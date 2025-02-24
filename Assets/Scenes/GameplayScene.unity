@@ -287,7 +287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416198506188972359, guid: 045865a9d3817a74da81012f505b34fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.7
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 1416198506188972359, guid: 045865a9d3817a74da81012f505b34fc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5166205933171910506, guid: ad0630f9a391e12459cbd7e572e6bcc0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.7
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 5166205933171910506, guid: ad0630f9a391e12459cbd7e572e6bcc0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -807,6 +807,34 @@ PrefabInstance:
     - target: {fileID: 4052510321474484500, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023415926660098757, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511800701749755299, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
+      propertyPath: m_Name
+      value: Background Sprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513598797834084809, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513598797834084809, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513598797834084809, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017048024029965597, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 70fe579b1b92d794cbd5770669b1b732, type: 3}
+    - target: {fileID: 8017048024029965597, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8306652646046580595, guid: 72ac098e5ed06a74c86ae85b23cc41c7, type: 3}
       propertyPath: m_Name

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Interfaces;
-using Game.ScriptableObjects;
 using System;
 
 namespace Game.Controllers
@@ -9,11 +8,11 @@ namespace Game.Controllers
     public class BallsController: IDisposable
     {
         private readonly List<IClickableBall> _activeBalls = new List<IClickableBall>();
-        private readonly GameEventAggregator _eventAggregator;
+        private readonly IGameEventsAgrregator _eventAggregator;
 
         private const float _ballsRadius = 1.25f;
 
-        public BallsController(GameEventAggregator gameEventAggregator)
+        public BallsController(IGameEventsAgrregator gameEventAggregator)
         {
             _eventAggregator = gameEventAggregator;
             _eventAggregator.BallSpawned += OnBallSpawned;
@@ -32,7 +31,9 @@ namespace Game.Controllers
 
             if (connectedBalls.Count < 3)
             {
+                // Player missed
                 Debug.Log("Miss!");
+                _eventAggregator.RaisePlayerMissed();
                 return;
             }
 
@@ -82,6 +83,7 @@ namespace Game.Controllers
         public void Dispose()
         {
             _eventAggregator.BallSpawned -= OnBallSpawned;
+
             foreach (var ball in _activeBalls)
             {
                 ball.OnBallClick -= OnBallClicked;

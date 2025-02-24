@@ -11,7 +11,7 @@ namespace Game.Controllers
     public class BallSpawner :  IDisposable
     {
         private readonly BallsListSO _ballPrefabs;
-        private GameEventAggregator _gameEventAggregator;
+        private IGameEventsAgrregator _gameEventAggregator;
         private readonly Transform _spawnContainer;
 
 
@@ -24,7 +24,7 @@ namespace Game.Controllers
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private int _currentBallCount = 0;
 
-        public BallSpawner(BallsListSO ballPrefabs, GameEventAggregator gameEventAggregator, Transform spawnContainer)
+        public BallSpawner(BallsListSO ballPrefabs, IGameEventsAgrregator gameEventAggregator, Transform spawnContainer)
         {
             _ballPrefabs = ballPrefabs;
             _gameEventAggregator = gameEventAggregator;

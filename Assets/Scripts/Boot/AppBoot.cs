@@ -14,8 +14,9 @@ namespace Game.Boot
     public class AppBoot : MonoBehaviour
     {
         [SerializeField] private GameObject[] _objectsToInstantiaiteOnBoot;
-        [SerializeField] private ServiceLocatorSO _serviceLocator;
 
+        [SerializeField] private ServiceLocatorSO _serviceLocator;
+        //[SerializeField] private 
         [SerializeField] private ReactiveFlaot _loadingProgress;
 
         private IAssetLoader _assetLoaderService;
@@ -36,6 +37,7 @@ namespace Game.Boot
 
             _sceneManager = new SceneManagerService(_assetLoaderService);
             _serviceLocator.RegisterService(_sceneManager);
+
         }
 
         private async void Start()
