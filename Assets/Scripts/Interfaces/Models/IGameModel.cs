@@ -4,8 +4,11 @@ namespace Game.Interfaces
     public interface IGameModel
     {
         void InitiliazeRoundData();
+        void StartRoundTimer();
+        void StopRoundTimer();
         void CalculateScore(int ballsExplodedAmount);
-        public void UpdateTaps(int amount);
+        void AddTaps(int amount);
+        void Dispose();
     }
 }
 

@@ -1,14 +1,20 @@
 using Game.ScriptableObjects;
 using Game.Interfaces;
+using Game.Utility;
+using System;
 
 namespace Game.Models 
 {
-    public class GameModel : IGameModel
+    public class GameModel : IGameModel , IDisposable
     {
         private ReactiveInt _roundScore;
         private int _goalScore;
         private ReactiveInt _tapsLeft;
         private ReactiveInt _timeCounter;
+
+        private TimerWithCallback _timer;
+
+        private const int _timeForRound = 30;
 
         public GameModel(ReactiveInt roundScore, ReactiveInt tapsLeft, ReactiveInt timeCounter)
         {
@@ -16,12 +22,25 @@ namespace Game.Models
             _goalScore = 400;
             _tapsLeft = tapsLeft;
             _timeCounter = timeCounter;
+
+            _timer = new TimerWithCallback(_timeForRound, UpdateTimer);
         }
 
         public void InitiliazeRoundData()
         {
-            SetScore(0);
+            _roundScore.Value = 0;
             _tapsLeft.Value = 20;
+            _timeCounter.Value = _timeForRound;
+        }
+
+        public void StartRoundTimer()
+        {
+            _timer.StartTimer();
+        }
+
+        public void StopRoundTimer()
+        {
+            _timer.StopTimer();
         }
 
         public void CalculateScore(int ballsExplodedCount)
@@ -42,12 +61,14 @@ namespace Game.Models
             AddScore(score);
         }
 
-        private void SetScore(int score) => _roundScore.Value = score;
         private void AddScore(int score) => _roundScore.Value += score;
+        private void UpdateTimer(int time) => _timeCounter.Value = time;
+        public void AddTaps(int amount) => _tapsLeft.Value += amount;
 
-        public void UpdateTaps(int amount)
+        public  void Dispose()
         {
-            _tapsLeft.Value += amount;
+            _timer.Dispose();
         }
+        
     }
 }

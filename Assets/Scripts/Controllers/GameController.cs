@@ -38,6 +38,7 @@ namespace Game.Controllers
         private void OnRoundStarted()
         {
             _model.InitiliazeRoundData();
+            _model.StartRoundTimer();
         }
         private void OnBallsExploded(int amount)
         {
@@ -49,7 +50,7 @@ namespace Game.Controllers
         private void OnPlayerMissed()
         {
             Debug.Log("[GameController] player missed!");
-            _model.UpdateTaps(-1);
+            _model.AddTaps(-1);
         }
         private void OnRoundEnded(bool isWin, int score)
         {

@@ -271,6 +271,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1543335487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3001168557835043140, guid: 0d98db1a66a70094f8a422d27883deec, type: 3}
+  m_PrefabInstance: {fileID: 3430896968846888038}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1602881876 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5822634660650196192, guid: 42558db3a16e02647a9cde9199542494, type: 3}
@@ -290,6 +301,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _label: {fileID: 152527176}
   _reactiveInt: {fileID: 11400000, guid: dcab79aba11a9c24ab6c9c2fb2922527, type: 2}
+--- !u!1 &1931647413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4839451853133806314, guid: 0d98db1a66a70094f8a422d27883deec, type: 3}
+  m_PrefabInstance: {fileID: 3430896968846888038}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1931647415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931647413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7025e20b5f1e24290522bb9629196d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _label: {fileID: 1543335487}
+  _reactiveInt: {fileID: 11400000, guid: 24c204a1440e78347b8419588d169fb4, type: 2}
 --- !u!114 &2028522237 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 339344691786083946, guid: e7d629e1363e5854298eff25335092dc, type: 3}
@@ -597,10 +627,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Timer Container
       objectReference: {fileID: 0}
+    - target: {fileID: 6300491496676806991, guid: 0d98db1a66a70094f8a422d27883deec, type: 3}
+      propertyPath: m_Name
+      value: Timer Element
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4839451853133806314, guid: 0d98db1a66a70094f8a422d27883deec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1931647415}
   m_SourcePrefab: {fileID: 100100000, guid: 0d98db1a66a70094f8a422d27883deec, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
