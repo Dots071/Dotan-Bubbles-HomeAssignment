@@ -162,6 +162,53 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3244026410071234415, guid: 0d98db1a66a70094f8a422d27883deec, type: 3}
   m_PrefabInstance: {fileID: 3430896968846888038}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1074730467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1074730469}
+  - component: {fileID: 1074730468}
+  m_Layer: 0
+  m_Name: TestPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1074730468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074730467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851d69790c1130e4b8e3cd7e936adb4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 6484656468076700565, guid: d604ed5e421222b4f817a44351a64209, type: 3}
+  _ballsListSO: {fileID: 11400000, guid: 1c0059ec80b08504db85a12d58e63d6c, type: 2}
+  _serviceLocatorSO: {fileID: 11400000, guid: d855f6f2b8b023a4fae733819a4b02f3, type: 2}
+--- !u!4 &1074730469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074730467}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1175519557 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 130252846490801579, guid: 42558db3a16e02647a9cde9199542494, type: 3}
@@ -644,3 +691,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1460492536}
+  - {fileID: 1074730469}

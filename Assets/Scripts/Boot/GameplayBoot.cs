@@ -3,6 +3,7 @@ using UnityEngine;
 using Game.Controllers;
 using Game.Models;
 using Game.Interfaces;
+using System;
 
 namespace Game.Boot
 {
@@ -26,6 +27,19 @@ namespace Game.Boot
         {
             BindObjects();
         }
+
+        private void Update()
+        {
+           if(Input.GetKey(KeyCode.Space))
+            {
+                var pool = _serviceLocatorSO.GetService<ObjectPoolSO>();
+                var ball = pool.GetObject(_ballsContainer.transform);
+                ball.transform.position = Vector3.one;
+                Debug.Log($"Ball instantiated {ball.name}, position: {ball.transform.position}");
+            }
+        }
+
+
 
         private void BindObjects()
         {
