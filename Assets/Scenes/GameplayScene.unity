@@ -426,6 +426,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85892a88706bfc04fa26c514314e483d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _score: {fileID: 11400000, guid: dcab79aba11a9c24ab6c9c2fb2922527, type: 2}
+  _taps: {fileID: 11400000, guid: e57c7c1676681154680eaaf4d78f6ae8, type: 2}
+  _timeCounter: {fileID: 11400000, guid: 24c204a1440e78347b8419588d169fb4, type: 2}
   _ballsListSO: {fileID: 11400000, guid: 1c0059ec80b08504db85a12d58e63d6c, type: 2}
   _serviceLocatorSO: {fileID: 11400000, guid: d855f6f2b8b023a4fae733819a4b02f3, type: 2}
   _gameEventAggregator: {fileID: 11400000, guid: dfd9022ded972ea48be7c8c6c545aeb2, type: 2}

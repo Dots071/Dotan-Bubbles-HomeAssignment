@@ -11,7 +11,7 @@ namespace Game.Controllers
     public class BallSpawner :  IDisposable
     {
         private readonly BallsListSO _ballPrefabs;
-        private IGameEventsAgrregator _gameEventAggregator;
+        private readonly GameEventAggregator _gameEventAggregator;
         private readonly Transform _spawnContainer;
 
 
@@ -24,18 +24,26 @@ namespace Game.Controllers
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private int _currentBallCount = 0;
 
-        public BallSpawner(BallsListSO ballPrefabs, IGameEventsAgrregator gameEventAggregator, Transform spawnContainer)
+        public BallSpawner(BallsListSO ballPrefabs, GameEventAggregator gameEventAggregator, Transform spawnContainer)
         {
             _ballPrefabs = ballPrefabs;
             _gameEventAggregator = gameEventAggregator;
             _spawnContainer = spawnContainer;
 
-            StartGameWithDelay(200).Forget();
+            SubscribeToEvents();
         }
 
-        private async UniTaskVoid StartGameWithDelay(int delay)
+        private void SubscribeToEvents()
         {
-            await UniTask.Delay(delay);
+            _gameEventAggregator.GameRoundStarted += OnRoundStarted;
+        }
+
+        private void UnSubscribeToEvents()
+        {
+            _gameEventAggregator.GameRoundStarted -= OnRoundStarted;
+        }
+        private void OnRoundStarted()
+        {
             StartSpawning(_cancellationTokenSource.Token).Forget();
         }
 
@@ -69,6 +77,7 @@ namespace Game.Controllers
 
         public void Dispose()
         {
+            UnSubscribeToEvents();
             if (_cancellationTokenSource != null) _cancellationTokenSource.Cancel();
         }
     }
