@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Game.Interfaces;
@@ -5,54 +6,37 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using UnityEngine.SceneManagement;
 
 namespace Game.Services
 {
     public class SceneManagerService : ISceneManager
     {
-        private readonly IAssetLoader _addressablesService;
-        private readonly Dictionary<string, SceneInstance> _loadedScenes = new Dictionary<string, SceneInstance>();
+        private readonly Dictionary<AssetReference, SceneInstance> _loadedScenes = new Dictionary<AssetReference, SceneInstance>();
 
-        public SceneManagerService(IAssetLoader addressablesService)
+        public async UniTask LoadSceneAsync(AssetReference reference, bool isAdditive = false)
         {
-            _addressablesService = addressablesService;
+            var sceneInstance = await AddressablesService.LoadSceneAsync(reference, isAdditive);
+            _loadedScenes[reference] = sceneInstance;
         }
 
-        public async UniTask LoadSceneAsync(string sceneAddress, bool isAdditive = false)
+        public async UniTask<bool> UnloadSceneAsync(AssetReference reference)
         {
-            var handle = await _addressablesService.LoadSceneAsync(sceneAddress, isAdditive);
-
-            Debug.Log(handle);
-            await UniTask.Delay(100);
-
-            _loadedScenes[sceneAddress] = handle;
-            Debug.Log($"Scene loaded successfully: {sceneAddress}");
-
-        }
-
-        public async UniTask<bool> UnloadSceneAsync(string sceneAddress)
-        {
-            if (_loadedScenes.TryGetValue(sceneAddress, out SceneInstance sceneInstance))
+            if (_loadedScenes.TryGetValue(reference, out SceneInstance sceneInstance))
             {
-                AsyncOperationHandle handle = Addressables.UnloadSceneAsync(sceneInstance);
-                await handle.ToUniTask();
-
-                if (handle.Status == AsyncOperationStatus.Succeeded)
+                try
                 {
-                    _loadedScenes.Remove(sceneAddress);
-                    Debug.Log($"Scene unloaded successfully: {sceneAddress}");
+                    await AddressablesService.UnloadSceneAsync(sceneInstance);
                     return true;
                 }
-                else
+                catch(Exception ex)
                 {
-                    Debug.LogError($"Failed to unload scene at address: {sceneAddress}");
+                    Debug.LogError($"[SceneManagementService] Failed to unload scene: {reference}, error: {ex}");
                     return false;
                 }
             }
             else
             {
-                Debug.LogWarning($"Scene {sceneAddress} is not loaded.");
+                Debug.LogWarning($"Scene {reference} is not loaded.");
                 return false;
             }
         }

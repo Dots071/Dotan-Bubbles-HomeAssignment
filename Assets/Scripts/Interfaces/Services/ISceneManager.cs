@@ -1,12 +1,13 @@
 
 using Cysharp.Threading.Tasks;
+using UnityEngine.AddressableAssets;
 
 namespace Game.Interfaces
 {
     public interface ISceneManager
     {
-        public UniTask LoadSceneAsync(string sceneName, bool isAdditive);
-        public UniTask<bool> UnloadSceneAsync(string sceneAddress);
+        public UniTask LoadSceneAsync(AssetReference reference, bool isAdditive);
+        public UniTask<bool> UnloadSceneAsync(AssetReference reference);
     }
 }
 

@@ -10,16 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Test
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: Test
   m_Data:
     m_SerializedData: []
-  m_GUID: de267f740e50ca3429efca2a7d6d2920
-  m_SerializeEntries: []
+  m_GUID: bfbc155fca0088241bd0d10be1dca6d1
+  m_SerializeEntries:
+  - m_GUID: 68ef2072424013a4baef7a03e5b0a8af
+    m_Address: Assets/Scenes/TestPoolScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 91e911b833180ab458a0ffb24b3115bc, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 12955af610a9bd346a44fabc2986afa9, type: 2}
-    - {fileID: 11400000, guid: 231084dee81a65347b8d934a3971c12c, type: 2}
+    - {fileID: 11400000, guid: 5c714d3c07540664895b479c989a0cfe, type: 2}
+    - {fileID: 11400000, guid: a1bc41c0914d7134aa7fc97f3bf39cf0, type: 2}

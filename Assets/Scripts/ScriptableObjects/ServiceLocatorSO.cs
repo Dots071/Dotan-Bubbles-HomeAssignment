@@ -9,6 +9,14 @@ namespace Game.ScriptableObjects
     {
         private Dictionary<Type, object> _services = new Dictionary<Type, object>();
 
+        public void LogRegisteredServices()
+        {
+            Debug.Log($"[ServiceLocatorSO] Registered services:");
+            foreach (var service in _services)
+            {
+                Debug.Log($"- {service.Key.Name}");
+            }
+        }
         /// <summary>
         /// Registers a service instance with the locator.
         /// </summary>
@@ -19,11 +27,6 @@ namespace Game.ScriptableObjects
             {
                 Debug.LogWarning($"ServiceLocatorSO: Service of type {type} is already registered.");
                 return;
-            }
-            foreach (var kvp in _services) 
-            { 
-            
-            Debug.Log($"[ServiceLocatorSO] Service of type {kvp.Value} is registered.");
             }
             _services[type] = service;
         }
@@ -58,11 +61,6 @@ namespace Game.ScriptableObjects
         {
             Debug.Log($"[ServiceLocatorSO] Services cleared.");
             _services.Clear();
-        }
-
-        private void OnDestroy()
-        {
-            ClearServices();
         }
     }
 }

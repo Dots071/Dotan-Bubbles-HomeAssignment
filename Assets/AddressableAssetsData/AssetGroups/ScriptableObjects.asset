@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ScriptableObjects
+  m_EditorClassIdentifier: 
+  m_GroupName: ScriptableObjects
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 9c4d7e2c63ef8ad4b80f2aed203d66c2
+  m_SerializeEntries:
+  - m_GUID: 1c0059ec80b08504db85a12d58e63d6c
+    m_Address: Assets/Scripts/ScriptableObjects/BallsListSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9268f3cbb9d68cf4196fdadf573f38e8
+    m_Address: Assets/Scripts/ScriptableObjects/ObjectPoolSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c886e0a07bf67fc4ebbc4d5f6782fda9
+    m_Address: Assets/Scripts/Models/AssetReferencesSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d855f6f2b8b023a4fae733819a4b02f3
+    m_Address: Assets/Scripts/ScriptableObjects/ServiceLocatorSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 91e911b833180ab458a0ffb24b3115bc, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 703e29fa2744a4c418db0444af4f0833, type: 2}
+    - {fileID: 11400000, guid: c6e5bcd83d216b446834026f6c0d79c8, type: 2}

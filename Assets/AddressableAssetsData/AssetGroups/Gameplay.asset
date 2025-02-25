@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Gameplay
+  m_EditorClassIdentifier: 
+  m_GroupName: Gameplay
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d67bd1ccb70c81e4b8e6d63c4182aef4
+  m_SerializeEntries:
+  - m_GUID: 13833794b48e8634cabf892bf967bfc4
+    m_Address: Assets/Scenes/GameHudScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c04b8bc56fed2e4d927d103583a3e6a
+    m_Address: Assets/Scenes/GameplayScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70fe579b1b92d794cbd5770669b1b732
+    m_Address: Assets/Exam Files/Sprites/Board/background.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ac7c249543817d4bb86b00c0b88e874
+    m_Address: Assets/Exam Files/Sprites/Board/GameplayBackgroundAtlas.spriteatlasv2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6cf43dea80c19b47b29a78ea08614f5
+    m_Address: Assets/Exam Files/Sprites/Board/backgroundContainerFrame.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d917514284dc4134bb70dea28077cba2
+    m_Address: Assets/Exam Files/Sprites/Board/bg bottom.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 91e911b833180ab458a0ffb24b3115bc, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2b101c31fa86ad841982df5cd4e46472, type: 2}
+    - {fileID: 11400000, guid: 5a0f4796181ff6b4c9c95646c6204c35, type: 2}

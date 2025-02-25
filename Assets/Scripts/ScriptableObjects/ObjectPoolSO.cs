@@ -38,16 +38,17 @@ namespace Game.ScriptableObjects
         /// Retrieves an object from the pool.
         /// If the pool is empty, a new instance is created.
         /// </summary>
-        public GameObject GetObject(Transform parent = null)
+        public GameObject GetObject(Transform parentToSet = null)
         {
             GameObject instance;
             if (pool.Count > 0)
             {
                 instance = pool.Dequeue();
+                instance.transform.SetParent(parentToSet);
             }
             else
             {
-                instance = Instantiate(prefab, parent);
+                instance = Instantiate(prefab, parentToSet);
             }
             instance.SetActive(true);
             return instance;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: LoadingScene_BundledAssetGroupSchema
+  m_Name: GameLoading_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: 989a3134e5b36984f9cd2400b9144599, type: 2}
   m_InternalBundleIdMode: 1

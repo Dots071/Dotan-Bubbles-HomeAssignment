@@ -152,11 +152,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectsToInstantiaiteOnBoot:
-  - {fileID: 2729553515422767061, guid: a6b1dbe271012b846a09f5cc6a2ffb42, type: 3}
+  - {fileID: 7833157141739967936, guid: 190e4d99b252df34bab84f017096946f, type: 3}
   - {fileID: 3237824038615934653, guid: a7afb6db1b68e8d40ad6f2dbc4ce09e4, type: 3}
   - {fileID: 3001775249729636693, guid: 9fb0b2619bd51b8468163cba879f5081, type: 3}
-  _serviceLocator: {fileID: 11400000, guid: d855f6f2b8b023a4fae733819a4b02f3, type: 2}
-  _loadingProgress: {fileID: 11400000, guid: 3ef228161e4d0e44e9989e352867ec73, type: 2}
+  _assetReferences: {fileID: 11400000, guid: c886e0a07bf67fc4ebbc4d5f6782fda9, type: 2}
 --- !u!4 &1631350273
 Transform:
   m_ObjectHideFlags: 0

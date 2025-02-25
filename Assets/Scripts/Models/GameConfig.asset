@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: LoadingScene_ContentUpdateGroupSchema
+  m_Script: {fileID: 11500000, guid: afcbdd5b6e9150848836e514546047c2, type: 3}
+  m_Name: GameConfig
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 989a3134e5b36984f9cd2400b9144599, type: 2}
-  m_StaticContent: 0
+  IsMusicOn: 1
+  IsSfxOn: 1
+  GameDifficulty: 1
+  HighScore: 0

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0893373d9717aa4090f9f17c47bfc51, type: 3}
+  m_Name: AssetReferencesSO
+  m_EditorClassIdentifier: 
+  LoadingScene:
+    m_AssetGUID: 8c9cfa26abfee488c85f1582747f6a02
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MenuScene:
+    m_AssetGUID: 00a7dddfe618643449726b291d2b4337
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  GameplayScene:
+    m_AssetGUID: 4c04b8bc56fed2e4d927d103583a3e6a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  GameplayHudScene:
+    m_AssetGUID: 13833794b48e8634cabf892bf967bfc4
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  background1:
+    m_AssetGUID: 70fe579b1b92d794cbd5770669b1b732
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  background2:
+    m_AssetGUID: 0a205f865589afd4aaf87020f613fba5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  BallsSO:
+    m_AssetGUID: 1c0059ec80b08504db85a12d58e63d6c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  BallsObjectPool:
+    m_AssetGUID: 9268f3cbb9d68cf4196fdadf573f38e8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ServiceLocatorSO:
+    m_AssetGUID: d855f6f2b8b023a4fae733819a4b02f3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

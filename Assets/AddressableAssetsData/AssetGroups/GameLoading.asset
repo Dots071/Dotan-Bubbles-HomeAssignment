@@ -10,13 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: LoadingScene
+  m_Name: GameLoading
   m_EditorClassIdentifier: 
-  m_GroupName: LoadingScene
+  m_GroupName: GameLoading
   m_Data:
     m_SerializedData: []
   m_GUID: 368a04d3278e0d94082eb9d54f37cc9f
   m_SerializeEntries:
+  - m_GUID: 0a205f865589afd4aaf87020f613fba5
+    m_Address: Assets/Exam Files/Sprites/Backgrounds/Background-1.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49e1d02942b188a45b9cc06cced4d347
+    m_Address: Assets/Scenes/Boot.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c9cfa26abfee488c85f1582747f6a02
     m_Address: LoadingScene
     m_ReadOnly: 0

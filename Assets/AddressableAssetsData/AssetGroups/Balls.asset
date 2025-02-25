@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Balls
+  m_EditorClassIdentifier: 
+  m_GroupName: Balls
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ea6cc8b09fa49a84cb1bcd6dfd64f45c
+  m_SerializeEntries:
+  - m_GUID: 0705005fc5e003142b5f0a01708bf250
+    m_Address: Assets/Prefabs/Gameplay/Balls/Ball Purple.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12a928ed51377a249bf525f4d6b0de33
+    m_Address: Assets/Prefabs/Gameplay/Balls/Ball Red.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d604ed5e421222b4f817a44351a64209
+    m_Address: Assets/Prefabs/Gameplay/Balls/Ball Blue.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f5bd868237f572c4ca551f6c65f5996c
+    m_Address: Assets/Prefabs/Gameplay/Balls/Ball Yellow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 91e911b833180ab458a0ffb24b3115bc, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4efb79068de623444adcc94cb03a717c, type: 2}
+    - {fileID: 11400000, guid: bde3838cd9af367469a52fc4e24e02c0, type: 2}
