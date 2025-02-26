@@ -10,13 +10,13 @@ using UnityEngine.UI;
 
 public class GameLoadingBoot : MonoBehaviour
 {
-    [SerializeField] AssetReference testPoolRefrence;
     private ServiceLocatorSO _serviceLocator;
 
     [SerializeField] private AssetReferencesSO _assetReferences;
     [SerializeField] private Slider _loadingProgress;
 
     private ISceneManager _sceneManager;
+    private IPlayerPrefsService _playerPrefsService;
 
 
 
@@ -51,8 +51,12 @@ public class GameLoadingBoot : MonoBehaviour
     private async UniTask RegisterServices()
     {
         _serviceLocator = await AddressablesService.LoadAssetAsync<ServiceLocatorSO>(_assetReferences.ServiceLocatorSO);
+
         _sceneManager = new SceneManagerService();
         _serviceLocator.RegisterService(_sceneManager);
+
+        _playerPrefsService = new PlayerPrefsService();
+        _serviceLocator.RegisterService(_playerPrefsService);
 
         _serviceLocator.LogRegisteredServices();
 
@@ -77,12 +81,12 @@ public class GameLoadingBoot : MonoBehaviour
 
     private void UpdateProgress(float value)
     {
-        _loadingProgress.value = value;
+        if(_loadingProgress != null) _loadingProgress.value = value;
     }
 
     private async UniTask DisposeLoadingScene()
     {
-        await _sceneManager.LoadSceneAsync(_assetReferences.GameplayScene, true);
+        await _sceneManager.LoadSceneAsync(_assetReferences.MenuScene, true);
 
         await SceneManager.UnloadSceneAsync(0);
         //SceneManager.UnloadSceneAsync(0);

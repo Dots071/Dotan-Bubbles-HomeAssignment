@@ -7,7 +7,9 @@ using Game.ScriptableObjects;
 
 namespace Game.Controllers
 {
-    // A non-MonoBehaviour ball spawner that uses UniTask for asynchronous operations.
+    /// <summary>
+    /// 
+    /// </summary>
     public class BallSpawner :  IDisposable
     {
         private readonly BallsListSO _ballPrefabs;
@@ -15,8 +17,12 @@ namespace Game.Controllers
         private readonly Transform _spawnContainer;
 
 
+        private readonly ServiceLocatorSO _serviceLocator;
+        private readonly ObjectPoolSO _objectPoolSO;
+
+
         private const float _spawnInterval = 0.5f;
-        private const int _maxBalls = 60;
+        private const int _maxBalls = 60;   // Get this dynamically.
         private const float _spawnMinX = -4;
         private const float _spawnMaxX = 4;
         private const float _spawnY = 9;
@@ -24,11 +30,14 @@ namespace Game.Controllers
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private int _currentBallCount = 0;
 
-        public BallSpawner(BallsListSO ballPrefabs, GameEventAggregator gameEventAggregator, Transform spawnContainer)
+        public BallSpawner(BallsListSO ballPrefabs, GameEventAggregator gameEventAggregator,ServiceLocatorSO serviceLocatorSO, Transform spawnContainer)
         {
             _ballPrefabs = ballPrefabs;
             _gameEventAggregator = gameEventAggregator;
             _spawnContainer = spawnContainer;
+
+            _serviceLocator = serviceLocatorSO;
+            _objectPoolSO = _serviceLocator.GetService<ObjectPoolSO>();
 
             SubscribeToEvents();
         }
@@ -53,10 +62,20 @@ namespace Game.Controllers
             {
                 if (_currentBallCount < _maxBalls)
                 {
-                    SpawnBall();
+                    SpawnBallFromPool();
                 }
                 await UniTask.Delay(TimeSpan.FromSeconds(_spawnInterval), cancellationToken: cancellationToken);
             }
+        }
+
+        private void SpawnBallFromPool()
+        {
+            float spawnX = UnityEngine.Random.Range(_spawnMinX, _spawnMaxX);
+            var newBall = _objectPoolSO.GetObject(_spawnContainer);
+            var clickComponent = newBall.GetComponent<IClickableBall>();
+
+            _gameEventAggregator.RaiseBallSpawned(clickComponent);
+            _currentBallCount++;
         }
 
         private void SpawnBall()

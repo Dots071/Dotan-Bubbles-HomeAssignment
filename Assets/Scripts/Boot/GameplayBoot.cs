@@ -4,6 +4,8 @@ using Game.Controllers;
 using Game.Models;
 using Game.Interfaces;
 using System;
+using Cysharp.Threading.Tasks;
+using Game.Services;
 
 namespace Game.Boot
 {
@@ -13,42 +15,34 @@ namespace Game.Boot
         [SerializeField] private ReactiveInt _taps;
         [SerializeField] private ReactiveInt _timeCounter;
 
+        [SerializeField] private AssetReferencesSO _assetsRefrencesSO;
         [SerializeField] private BallsListSO _ballsListSO;
-        [SerializeField] private ServiceLocatorSO _serviceLocatorSO;
         [SerializeField] private GameEventAggregator _gameEventAggregator;
 
         [SerializeField] private Transform _ballsContainer;
 
+        private ServiceLocatorSO _serviceLocatorSO;
         private GameController _gameController;
         private BallSpawner _ballSpawner;
         private BallsController _ballsController;
 
-        void Start()
+        async void Start()
         {
-            BindObjects();
-        }
+            await BindObjects();
+            _gameEventAggregator.RaiseGameRoundStarted();
 
-        private void Update()
-        {
-           if(Input.GetKey(KeyCode.Space))
-            {
-                var pool = _serviceLocatorSO.GetService<ObjectPoolSO>();
-                var ball = pool.GetObject(_ballsContainer.transform);
-                ball.transform.position = Vector3.one;
-                Debug.Log($"Ball instantiated {ball.name}, position: {ball.transform.position}");
-            }
         }
 
 
 
-        private void BindObjects()
+        private async UniTask BindObjects()
         {
+            _serviceLocatorSO = await AddressablesService.LoadAssetAsync<ServiceLocatorSO>(_assetsRefrencesSO.ServiceLocatorSO);
             var gameModel = new GameModel(_score, _taps, _timeCounter);
             _gameController = new GameController(_gameEventAggregator, gameModel);
-            _ballSpawner = new BallSpawner(_ballsListSO, _gameEventAggregator, _ballsContainer);
+            _ballSpawner = new BallSpawner(_ballsListSO, _gameEventAggregator, _serviceLocatorSO, _ballsContainer);
             _ballsController = new BallsController(_gameEventAggregator);
 
-            _gameEventAggregator.RaiseGameRoundStarted();
         }
 
         private void OnDestroy()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Services 
 {
-    public class PlayerPrefsService
+    public class PlayerPrefsService : IPlayerPrefsService
     {
         private readonly Dictionary<Type, Action<string, object>> SaveActions = new()
         {
@@ -24,41 +24,35 @@ namespace Game.Services
 
         public void Save<T>(string key, T value)
         {
-            if (SaveActions.TryGetValue(typeof(T), out var saveAction))
-            {
-                saveAction(key, value);
-            }
-            else
-            {
-                // Serialize complex objects to JSON
-                PlayerPrefs.SetString(key, JsonUtility.ToJson(value));
-            }
-        }
-
-        public T Load<T>(string key)
-        {
-            if (!PlayerPrefs.HasKey(key))
-            {
-                Debug.LogWarning($"[PlayerPrefsService] Key '{key}' does not exist. Returning default value.");
-                return default;
-            }
-
             try
             {
-                if (LoadActions.TryGetValue(typeof(T), out var loadAction))
-                {
-                    return (T)loadAction(key);
-                }
-
-                // Deserialize complex types from JSON
-                string jsonData = PlayerPrefs.GetString(key);
-                return JsonUtility.FromJson<T>(jsonData);
+                string data = JsonUtility.ToJson(value);
+                PlayerPrefs.SetString(key, data);
+                PlayerPrefs.Save();
             }
             catch (Exception ex)
             {
-                Debug.LogError($"[PlayerPrefsService] Error loading key '{key}': {ex.Message}");
-                return default;
+                Debug.LogError($"Failed to save {key}: {ex.Message}");
             }
+        }
+
+        public T Load<T>(string key) where T : new()
+        {
+            try
+            {
+                if (PlayerPrefs.HasKey(key))
+                {
+                    string data = PlayerPrefs.GetString(key);
+                    T result = JsonUtility.FromJson<T>(data);
+                    return result != null ? result : new T();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load {key}: {ex.Message}");
+            }
+            
+            return new T();
         }
     }
 }
