@@ -14,6 +14,7 @@ namespace Game.Boot
         [SerializeField] private ReactiveInt _score;
         [SerializeField] private ReactiveInt _taps;
         [SerializeField] private ReactiveInt _timeCounter;
+        [SerializeField] private ReactiveInt _goalScore;
 
         [SerializeField] private AssetReferencesSO _assetsRefrencesSO;
         [SerializeField] private BallsListSO _ballsListSO;
@@ -44,7 +45,7 @@ namespace Game.Boot
             _gameEventAggregator = _serviceLocatorSO.GetService<GameEventAggregator>();
             _sceneManager = _serviceLocatorSO.GetService<ISceneManager>();
 
-            var gameModel = new GameModel(_score, _taps, _timeCounter, _gameConfig);
+            var gameModel = new GameModel(_score, _taps, _timeCounter,_goalScore, _gameConfig);
             _gameController = new GameController(_gameEventAggregator, gameModel);
             _ballSpawner = new BallSpawner(_ballsListSO, _serviceLocatorSO, _ballsContainer);
             _ballsController = new BallsController(_gameEventAggregator);

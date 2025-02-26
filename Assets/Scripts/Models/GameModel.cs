@@ -11,7 +11,7 @@ namespace Game.Models
         public event Action<bool, int> RoundEnded;
 
         private ReactiveInt _roundScore;
-        private int _goalScore;
+        private ReactiveInt _goalScore;
         private ReactiveInt _tapsLeft;
         private ReactiveInt _timeCounter;
 
@@ -22,12 +22,13 @@ namespace Game.Models
         private const int _timeForRound = 30;
 
 
-        public GameModel(ReactiveInt roundScore, ReactiveInt tapsLeft, ReactiveInt timeCounter, GameConfigSO config)
+        public GameModel(ReactiveInt roundScore, ReactiveInt tapsLeft, ReactiveInt timeCounter, ReactiveInt goalScore, GameConfigSO config)
         {
             _gameConfigSO = config;
             _roundScore = roundScore;
             _tapsLeft = tapsLeft;
             _timeCounter = timeCounter;
+            _goalScore = goalScore;
 
             _timer = new TimerWithCallback(_timeForRound, UpdateTimer);
             _timer.OnTimeFinished += HandleTimerFinished;
@@ -40,7 +41,7 @@ namespace Game.Models
 
         public void InitiliazeRoundData()
         {
-            _goalScore = _gameConfigSO.GetScoreGoal();
+            _goalScore.Value = _gameConfigSO.GetScoreGoal();
             _roundScore.Value = 0;
             _tapsLeft.Value = _gameConfigSO.GetTaps() ;
             _timeCounter.Value = _gameConfigSO.GetTimeToFinish();
@@ -78,7 +79,7 @@ namespace Game.Models
         {
             _roundScore.Value += score;
 
-            if (_roundScore.Value > _goalScore)
+            if (_roundScore.Value > _goalScore.Value)
             {
                 RoundEnded?.Invoke(true, _roundScore.Value);
             }
