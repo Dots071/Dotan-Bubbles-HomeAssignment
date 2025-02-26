@@ -9,6 +9,7 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace Game.Services
 {
+    // Manages scene loading and unloading using Addressables and async operations
     public class SceneManagerService : ISceneManager
     {
         private readonly Dictionary<AssetReference, SceneInstance> _loadedScenes = new Dictionary<AssetReference, SceneInstance>();

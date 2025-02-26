@@ -1,9 +1,8 @@
-
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 /// <summary>
-/// One place to hold references to all Addressable assets (sprites, UI prefabs, scenes, etc.)
+/// Central repository for all addressable asset references used throughout the game
 /// </summary>
 [CreateAssetMenu(fileName = "AssetReferencesSO", menuName = "Scriptable Objects/AssetReferencesSO")]
 public class AssetReferencesSO : ScriptableObject
@@ -19,6 +18,7 @@ public class AssetReferencesSO : ScriptableObject
     public AssetReference background2;
 
     [Header("Scriptable Objects")]
+    public AssetReference GameConfig;
     public AssetReference BallsSO;
     public AssetReference BallsObjectPool;
     public AssetReference ServiceLocatorSO;

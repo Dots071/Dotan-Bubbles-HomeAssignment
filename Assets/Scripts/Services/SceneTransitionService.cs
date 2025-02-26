@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Game.Services
 {
+    // Handles visual transitions between scenes with fade in/out effects
     public class SceneTransitionService : ISceneTransitionService
     {
         private CanvasGroup _transitionPanel;

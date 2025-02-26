@@ -1,10 +1,9 @@
-
 using Cysharp.Threading.Tasks;
 
 namespace Game.Services 
 {
     /// <summary>
-    /// An abstract base class for services to reduce duplicated functionalities.
+    /// Base class for all services with initialization and shutdown functionality.
     /// </summary>
     public abstract class ServiceBase
     {

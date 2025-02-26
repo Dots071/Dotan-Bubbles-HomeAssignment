@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game.ScriptableObjects
 {
+    // Service locator pattern implementation for registering and retrieving game services
     [CreateAssetMenu(fileName = "ServiceLocatorSO", menuName = "Scriptable Objects/ServiceLocator")]
     public class ServiceLocatorSO : ScriptableObject
     {

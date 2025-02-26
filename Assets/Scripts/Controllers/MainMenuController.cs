@@ -7,23 +7,24 @@ using System;
 
 namespace Game.Controllers 
 {
+    // Handles main menu interactions including settings, play button, and difficulty selection
     public class MainMenuController : IDisposable
     {
         [SerializeField] private IMainMenuView _view;
         [SerializeField] private AssetReferencesSO _assetReferences;
 
-        private GameSettingsModel _settings;
+        private GameConfigSO _gameConfig;
         private IPlayerPrefsService _prefsService;
         private ISceneManager _sceneManager;
         private ISceneTransitionService _transitionService;
         private ServiceLocatorSO _serviceLocator;
 
-        private const string SETTINGS_KEY = "GameSettings";
+        private const string SETTINGS_KEY = "GameSettingsLocal";
 
-        public MainMenuController(IMainMenuView view, GameSettingsModel model, AssetReferencesSO assetReferences, ServiceLocatorSO serviceLocator)
+        public MainMenuController(IMainMenuView view, GameConfigSO model, AssetReferencesSO assetReferences, ServiceLocatorSO serviceLocator)
         {
             _view = view;
-            _settings = model;
+            _gameConfig = model;
             _assetReferences = assetReferences;
             _serviceLocator = serviceLocator;
 
@@ -56,14 +57,18 @@ namespace Game.Controllers
 
         private void LoadSettings()
         {
-            _settings = _prefsService.Load<GameSettingsModel>(SETTINGS_KEY);
+            var settings = _prefsService.Load<GameSettingsModel>(SETTINGS_KEY);
+            _gameConfig.IsMusicOn = settings.IsMusicOn;
+            _gameConfig.IsSfxOn = settings.IsSfxOn;
+            _gameConfig.Difficulty = settings.Difficulty;
+            _gameConfig.HighScore = settings.HighScore;
         }
 
         private void SetupView()
         {
             _view.Initialize();
-            _view.SetHighScore(_settings.HighScore);
-            _view.UpdateSettings(_settings.IsMusicOn, _settings.IsSfxOn, _settings.Difficulty);
+            _view.SetHighScore(_gameConfig.HighScore);
+            _view.UpdateSettings(_gameConfig.IsMusicOn, _gameConfig.IsSfxOn, _gameConfig.Difficulty);
         }
 
         private void SubscribeToEvents()
@@ -91,7 +96,7 @@ namespace Game.Controllers
         {
             SaveSettings();
             await _transitionService.TransitionOut();
-            await _sceneManager.LoadSceneAsync(_assetReferences.GameplayScene, true);
+            await _sceneManager.LoadSceneAsync(_assetReferences.GameplayScene, false);
         }
 
         public void OnSettingsClicked() => _view.ShowSettingsPanel(true);
@@ -102,13 +107,22 @@ namespace Game.Controllers
             _view.ShowSettingsPanel(false);
         }
 
-        public void OnMusicToggled(bool isOn) => _settings.IsMusicOn = isOn;
+        public void OnMusicToggled(bool isOn) => _gameConfig.IsMusicOn = isOn;
 
-        public void OnSfxToggled(bool isOn) => _settings.IsSfxOn = isOn;
+        public void OnSfxToggled(bool isOn) => _gameConfig.IsSfxOn = isOn;
 
-        public void OnDifficultyChanged(int value) => _settings.Difficulty = value;
+        public void OnDifficultyChanged(int value) => _gameConfig.Difficulty = value;
 
-        private void SaveSettings() => _prefsService.Save(SETTINGS_KEY, _settings);
+        private void SaveSettings()
+        {
+            var settings = new GameSettingsModel();
+            settings.IsMusicOn = _gameConfig.IsMusicOn;
+            settings.IsSfxOn = _gameConfig.IsSfxOn;
+            settings.Difficulty = _gameConfig.Difficulty;
+            settings.HighScore = _gameConfig.HighScore;
+            _prefsService.Save(SETTINGS_KEY, settings);
+
+        }
 
         public void Dispose()
         {

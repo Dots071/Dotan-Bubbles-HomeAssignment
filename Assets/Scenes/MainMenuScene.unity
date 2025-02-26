@@ -2348,11 +2348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 4862393633521611245}
   _assetReferences: {fileID: 11400000, guid: c886e0a07bf67fc4ebbc4d5f6782fda9, type: 2}
-  _settingsModel:
-    IsMusicOn: 1
-    IsSfxOn: 1
-    Difficulty: 1
-    HighScore: 0
+  _gameConfig: {fileID: 11400000, guid: b072fb3f71ddd92448494476c3c8755f, type: 2}
 --- !u!1 &2064972964
 GameObject:
   m_ObjectHideFlags: 0

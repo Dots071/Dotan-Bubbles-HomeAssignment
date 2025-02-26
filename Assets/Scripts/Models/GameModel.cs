@@ -5,32 +5,45 @@ using System;
 
 namespace Game.Models 
 {
-    public class GameModel : IGameModel , IDisposable
+    // Maintains game state including score, timer, and win/loss conditions
+    public class GameModel : IGameModel, IDisposable
     {
+        public event Action<bool, int> RoundEnded;
+
         private ReactiveInt _roundScore;
         private int _goalScore;
         private ReactiveInt _tapsLeft;
         private ReactiveInt _timeCounter;
 
+        private GameConfigSO _gameConfigSO;
+
         private TimerWithCallback _timer;
 
         private const int _timeForRound = 30;
 
-        public GameModel(ReactiveInt roundScore, ReactiveInt tapsLeft, ReactiveInt timeCounter)
+
+        public GameModel(ReactiveInt roundScore, ReactiveInt tapsLeft, ReactiveInt timeCounter, GameConfigSO config)
         {
+            _gameConfigSO = config;
             _roundScore = roundScore;
-            _goalScore = 400;
             _tapsLeft = tapsLeft;
             _timeCounter = timeCounter;
 
             _timer = new TimerWithCallback(_timeForRound, UpdateTimer);
+            _timer.OnTimeFinished += HandleTimerFinished;
+        }
+
+        private void HandleTimerFinished()
+        {
+            RoundEnded?.Invoke(false, _roundScore.Value);
         }
 
         public void InitiliazeRoundData()
         {
+            _goalScore = _gameConfigSO.GetScoreGoal();
             _roundScore.Value = 0;
-            _tapsLeft.Value = 20;
-            _timeCounter.Value = _timeForRound;
+            _tapsLeft.Value = _gameConfigSO.GetTaps() ;
+            _timeCounter.Value = _gameConfigSO.GetTimeToFinish();
         }
 
         public void StartRoundTimer()
@@ -61,12 +74,30 @@ namespace Game.Models
             AddScore(score);
         }
 
-        private void AddScore(int score) => _roundScore.Value += score;
-        private void UpdateTimer(int time) => _timeCounter.Value = time;
-        public void AddTaps(int amount) => _tapsLeft.Value += amount;
-
-        public  void Dispose()
+        private void AddScore(int score)
         {
+            _roundScore.Value += score;
+
+            if (_roundScore.Value > _goalScore)
+            {
+                RoundEnded?.Invoke(true, _roundScore.Value);
+            }
+        }
+        private void UpdateTimer(int time) => _timeCounter.Value = time;
+        public void AddTaps(int amount)
+        {
+            _tapsLeft.Value += amount;
+
+            if( _tapsLeft.Value <= 0)
+            {
+                RoundEnded?.Invoke(false, _roundScore.Value);
+
+            }
+        }
+
+        public void Dispose()
+        {
+            _timer.OnTimeFinished -= HandleTimerFinished;
             _timer.Dispose();
         }
         

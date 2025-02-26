@@ -6,6 +6,7 @@ using Game.ScriptableObjects;
 
 namespace Game.Controllers
 {
+    // Manages all active balls in the game, handling clicks and ball lifecycle events
     public class BallsController: IDisposable
     {
         private readonly List<IClickableBall> _activeBalls = new List<IClickableBall>();
@@ -22,7 +23,7 @@ namespace Game.Controllers
         private void OnBallSpawned(IClickableBall ball)
         {
             _activeBalls.Add(ball);
-            ball.OnBallClick += OnBallClicked;
+            ball.BallClick += OnBallClicked;
         }
 
         private void OnBallClicked(IClickableBall clickedBall)
@@ -42,6 +43,7 @@ namespace Game.Controllers
 
             foreach (var ball in connectedBalls)
             {
+                ball.BallClick -= OnBallClicked;
                 ball.ExplodeBall();
             }
 
@@ -89,7 +91,7 @@ namespace Game.Controllers
 
             foreach (var ball in _activeBalls)
             {
-                ball.OnBallClick -= OnBallClicked;
+                ball.BallClick -= OnBallClicked;
             }
         }
     }

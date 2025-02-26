@@ -488,7 +488,7 @@ MonoBehaviour:
   _timeCounter: {fileID: 11400000, guid: 24c204a1440e78347b8419588d169fb4, type: 2}
   _assetsRefrencesSO: {fileID: 11400000, guid: c886e0a07bf67fc4ebbc4d5f6782fda9, type: 2}
   _ballsListSO: {fileID: 11400000, guid: 1c0059ec80b08504db85a12d58e63d6c, type: 2}
-  _gameEventAggregator: {fileID: 11400000, guid: dfd9022ded972ea48be7c8c6c545aeb2, type: 2}
+  _gameConfig: {fileID: 11400000, guid: b072fb3f71ddd92448494476c3c8755f, type: 2}
   _ballsContainer: {fileID: 1911561162}
 --- !u!4 &1100744846
 Transform:

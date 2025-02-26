@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cbfe02e333c6e43aa44d613c0546ca, type: 3}
   m_Name: BallsListSO
   m_EditorClassIdentifier: 
-  _ballPrefabs:
+  BallPrefabs:
   - {fileID: 6484656468076700565, guid: d604ed5e421222b4f817a44351a64209, type: 3}
   - {fileID: 6130450417729669359, guid: 0705005fc5e003142b5f0a01708bf250, type: 3}
   - {fileID: 6484656468076700565, guid: 12a928ed51377a249bf525f4d6b0de33, type: 3}

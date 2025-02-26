@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Stores and manages ball-related data and state (placeholder/stub class)
 public class BallsModel : MonoBehaviour
 {
     // Start is called before the first frame update

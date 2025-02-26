@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace Game.ScriptableObjects
 {
+    // Event system that allows different parts of the game to communicate without direct references
     [CreateAssetMenu(fileName = "GameEventsAggregator", menuName = "Scriptable Objects/Events/Events Aggregator")]
     public class GameEventAggregator : ScriptableObject
     {

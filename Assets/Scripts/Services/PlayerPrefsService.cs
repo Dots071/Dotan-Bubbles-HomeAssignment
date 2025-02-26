@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game.Services 
 {
+    // Service for saving and loading game data using PlayerPrefs with JSON serialization
     public class PlayerPrefsService : IPlayerPrefsService
     {
         private readonly Dictionary<Type, Action<string, object>> SaveActions = new()

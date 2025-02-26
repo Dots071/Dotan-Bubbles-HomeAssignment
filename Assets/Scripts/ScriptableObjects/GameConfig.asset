@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8e8a46a06821943a8b2492104cc432, type: 3}
-  m_Name: ObjectPoolSO
+  m_Script: {fileID: 11500000, guid: 8bbb5371c7341c24ebae40c96fc06b42, type: 3}
+  m_Name: GameConfig
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  initialPoolSize: 20
+  TimeToFinish: 30
+  ScoreGoal: 400
+  Taps: 20

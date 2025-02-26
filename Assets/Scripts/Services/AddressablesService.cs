@@ -14,6 +14,7 @@ using System.Collections.Generic;
 
 namespace Game.Services
 {
+    // Handles asynchronous loading and unloading of assets using Unity's Addressables system
     public static class AddressablesService
     {
         // Dictionary to track loaded assets.

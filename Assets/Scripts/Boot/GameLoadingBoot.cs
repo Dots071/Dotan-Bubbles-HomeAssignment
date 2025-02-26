@@ -1,20 +1,21 @@
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
 using Game.Interfaces;
 using Game.ScriptableObjects;
 using Game.Services;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// Manages the loading screen, including progress bar updates and transition to the main menu
 public class GameLoadingBoot : MonoBehaviour
 {
-    private ServiceLocatorSO _serviceLocator;
 
     [SerializeField] private AssetReferencesSO _assetReferences;
     [SerializeField] private Slider _loadingProgress;
 
+    private ServiceLocatorSO _serviceLocator;
+    private BallsListSO _balls;
+    private GameEventAggregator _gameEventAggregator;
     private ISceneManager _sceneManager;
     private IPlayerPrefsService _playerPrefsService;
 
@@ -51,12 +52,18 @@ public class GameLoadingBoot : MonoBehaviour
     private async UniTask RegisterServices()
     {
         _serviceLocator = await AddressablesService.LoadAssetAsync<ServiceLocatorSO>(_assetReferences.ServiceLocatorSO);
+        _balls = await AddressablesService.LoadAssetAsync<BallsListSO>(_assetReferences.BallsSO);
 
         _sceneManager = new SceneManagerService();
         _serviceLocator.RegisterService(_sceneManager);
 
         _playerPrefsService = new PlayerPrefsService();
         _serviceLocator.RegisterService(_playerPrefsService);
+
+        _gameEventAggregator = new GameEventAggregator();
+        _serviceLocator.RegisterService(_gameEventAggregator);
+
+
 
         _serviceLocator.LogRegisteredServices();
 
@@ -70,7 +77,7 @@ public class GameLoadingBoot : MonoBehaviour
     {
         var ballPool = await AddressablesService.LoadAssetAsync<ObjectPoolSO>(_assetReferences.BallsObjectPool);
         _serviceLocator.RegisterService(ballPool);
-        ballPool.PrewarmPool();
+        ballPool.PrewarmPools(_balls);
     }
 
 

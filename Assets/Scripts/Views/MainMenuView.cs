@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace Game.Views
 {
+    // UI for the main menu including buttons, panels, and animation effects
     public class MainMenuView : MonoBehaviour, IMainMenuView
     {
         [Header("Main Menu Elements")]

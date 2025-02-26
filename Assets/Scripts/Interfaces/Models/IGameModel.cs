@@ -1,8 +1,11 @@
 
+using System;
+
 namespace Game.Interfaces
 {
     public interface IGameModel
     {
+        public event Action<bool, int> RoundEnded;
         void InitiliazeRoundData();
         void StartRoundTimer();
         void StopRoundTimer();

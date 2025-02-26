@@ -1,4 +1,4 @@
-
+// Collection of constant values used throughout the game
 namespace Game.Utility
 {
     public static class Constants

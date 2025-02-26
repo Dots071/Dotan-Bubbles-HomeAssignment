@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Game.Controllers
 {
+    // Core game logic controller that manages game state, score, and win/loss conditions
     public class GameController : IDisposable
     {
         private GameEventAggregator _events;
@@ -22,16 +23,18 @@ namespace Game.Controllers
             _events.GameRoundStarted += OnRoundStarted;
             _events.BallsExploded += OnBallsExploded;
             _events.PlayerMissed += OnPlayerMissed;
-            _events.GameRoundEnded += OnRoundEnded;
-        }
 
+            // The model calculated the business logic and notifys if the round ended and how.
+            _model.RoundEnded += OnRoundEnded;
+        }
 
         private void UnSubscribeToEvents()
         {
             _events.GameRoundStarted -= OnRoundStarted;
             _events.BallsExploded -= OnBallsExploded;
             _events.PlayerMissed -= OnPlayerMissed;
-            _events.GameRoundEnded -= OnRoundEnded;
+
+            _model.RoundEnded -= OnRoundEnded;
         }
 
 
@@ -52,9 +55,12 @@ namespace Game.Controllers
             Debug.Log("[GameController] player missed!");
             _model.AddTaps(-1);
         }
+
         private void OnRoundEnded(bool isWin, int score)
         {
-            throw new NotImplementedException();
+            Debug.Log($"[GameController] Game ended. Win: {isWin}, Score: {score}");
+            _events.RaiseGameRoundEnded(isWin, score);
+            // Any other game state cleanup here
         }
 
         public void Dispose()

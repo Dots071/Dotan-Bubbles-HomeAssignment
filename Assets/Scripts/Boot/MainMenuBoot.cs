@@ -8,11 +8,12 @@ using UnityEngine;
 
 namespace Game.Boot
 {
+    // Sets up the main menu scene and connects UI elements to their controllers
     public class MainMenuBoot : MonoBehaviour
     {
         [SerializeField] private MainMenuView _view;
         [SerializeField] private AssetReferencesSO _assetReferences;
-        [SerializeField] private GameSettingsModel _settingsModel;
+        [SerializeField] private GameConfigSO _gameConfig;
 
         private MainMenuController _controller;
 
@@ -21,7 +22,7 @@ namespace Game.Boot
         async void Start()
         {
             _serviceLocator = await AddressablesService.LoadAssetAsync<ServiceLocatorSO>(_assetReferences.ServiceLocatorSO);
-            _controller = new MainMenuController(_view, _settingsModel, _assetReferences, _serviceLocator);
+            _controller = new MainMenuController(_view, _gameConfig, _assetReferences, _serviceLocator);
 
 
         }
